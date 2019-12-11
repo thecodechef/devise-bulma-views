@@ -1,0 +1,30 @@
+%h1.title= t('.title', resource: resource_name.to_s.humanize)
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+  = bulma_devise_error_messages!
+
+  .field
+    = f.label :email, class: 'label'
+    = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'input'
+  
+  .field
+    = f.label :password, class: 'label'
+    = f.password_field :password, autocomplete: 'new-password', class: 'input'
+    %p.help.has-text-dark= t('.leave_blank_if_you_dont_want_to_change_it')
+  
+  .field 
+    = f.label :password_confirmation, class: 'label'
+    = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'input'
+  
+  .field
+    = f.label :current_password, class: 'label'
+    = f.password_field :current_password, autocomplete: 'current-password', class: 'input'
+    %p.help.has-text-dark= t('.we_need_your_current_password_to_confirm_your_changes')
+  
+  .field
+    = f.submit t('update'), class: 'button is-primary'
+
+%p
+  = "#{t('.update')} #{link_to t(.cancel_my_account), registration_path(resource_name), data: {confirm: t('.are_you_sure')}, method: :delete}"
+
+= link_to t('.back'), :back

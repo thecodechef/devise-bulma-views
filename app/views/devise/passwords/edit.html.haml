@@ -1,0 +1,21 @@
+%h1.title= t('.change_your_password')
+
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f|
+  
+  = bulma_devise_error_messages!
+  = f.hidden_field :reset_password_token
+
+  .field
+    = f.label :password, t('.new_password'), class: 'label'
+    = f.password_field :password, autofocus: true, class: 'input'
+    - if @minimum_password_length
+      %p.help.has-text-dark= t('devise.shared.minimum_password_length', count: @minimum_password_length)
+  
+  .field
+    = f.label :password_confirmation, t('.confirm_new_password'), class: 'label'
+    = f.password_field :password_confirmation, autocomplete: 'off', class: 'input'
+  
+  .field
+    = f.submit t('.change_my_password'), class: 'button is-primary'
+  
+  = render 'devise/shared/links'

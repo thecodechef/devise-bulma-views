@@ -1,0 +1,13 @@
+%h1.title= t('.resend_confirmation_instructions')
+
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+  = bulma_devise_error_messages!
+  
+  .field
+    = f.label :email, class: 'label'
+    = f.email_field :email, autofocus: true, autocomplete: 'email', value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'input'
+  
+  .field
+    = f.submit t('.resend_confirmation_instructions'), class: 'button is-primary'
+
+= render 'devise/shared/links'
